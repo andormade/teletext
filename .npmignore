@@ -1,0 +1,8 @@
+build
+src
+.gitignore
+.npmignore
+.babelrc
+node_modules
+test.html
+browser
