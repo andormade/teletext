@@ -5,6 +5,7 @@ let path = require('path');
 
 const INPUT_DIR = 'src/img';
 const OUTPUT_DIR = 'dist/img';
+const OUT_FILE = 'characters.json';
 
 let files = fs.readdirSync(INPUT_DIR);
 let characterSets = {};
@@ -21,4 +22,4 @@ if (!fs.existsSync(OUTPUT_DIR)){
 	fs.mkdirSync(OUTPUT_DIR);
 }
 
-fs.writeFileSync(OUTPUT_DIR + '/' + 'characters.json', JSON.stringify(characterSets));
+fs.writeFileSync(OUTPUT_DIR + '/' + OUT_FILE, JSON.stringify(characterSets));
