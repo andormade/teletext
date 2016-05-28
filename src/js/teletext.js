@@ -36,7 +36,11 @@ export default class Teletext extends Textmode {
 		super({
 			canvas           : options.canvas,
 			colors           : TELETEXT_COLORS,
-			characterSets    : characterSets,
+			characterSets    : [
+				characterSets['alphanumeric'],
+				characterSets['mosaic'],
+				characterSets['separated']
+			],
 			backgroundColors : Utils.generate2dArray(height, width, BLACK),
 			foregroundColors : Utils.generate2dArray(height, width, WHITE),
 			text             : Utils.generate2dArray(height, width, SPACE_CHARACTER),
