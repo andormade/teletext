@@ -23,15 +23,15 @@ const TELETEXT_COLORS = [
 ];
 
 const ALPHA_NUMERIC = 0;
-const SEPARATED_MOSAICS = 2;
 const CONTIGUOUS_MOSAICS = 1;
+const SEPARATED_MOSAICS = 2;
 
 const SPACE_CHARACTER = 0x20;
 
 export default class Teletext extends Textmode {
 	constructor(options) {
-		let width = options.width;
-		let height = options.height;
+		let rows = options.teletext.length;
+		let cols = options.teletext[0].length;
 
 		super({
 			canvas           : options.canvas,
@@ -41,13 +41,17 @@ export default class Teletext extends Textmode {
 				characterSets['mosaic'],
 				characterSets['separated']
 			],
-			backgroundColors : Utils.generate2dArray(height, width, BLACK),
-			foregroundColors : Utils.generate2dArray(height, width, WHITE),
-			text             : Utils.generate2dArray(height, width, SPACE_CHARACTER),
-			characterSetMap  : Utils.generate2dArray(height, width, ALPHA_NUMERIC)
+			backgroundColors : Utils.generate2dArray(rows, cols, BLACK),
+			foregroundColors : Utils.generate2dArray(rows, cols, WHITE),
+			text             : Utils.generate2dArray(rows, cols, SPACE_CHARACTER),
+			characterSetMap  : Utils.generate2dArray(rows, cols, ALPHA_NUMERIC)
 		});
 
-		this.setTeletext(Utils.generate2dArray(options.height, options.width, 'a'.charCodeAt(0)));
+		this.setTeletext(options.teletext);
+	}
+
+	render() {
+		super.render();
 	}
 
 	setTeletext(text) {

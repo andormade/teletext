@@ -1,8 +1,8 @@
 {
   "name": "teletext",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "JavaScript Teletext generator",
-  "main": "src/teletext.js",
+  "main": "dist/js/teletext.js",
   "scripts": {
     "build:babel": "babel src --out-dir dist",
     "build:browserify": "mkdir -p browser && browserify dist/js/teletext.js --standalone Teletext > browser/teletext.js",
