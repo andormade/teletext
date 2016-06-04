@@ -1,6 +1,7 @@
 import Textmode from 'textmode';
 import Utils from './utils';
 import characterSets from '../img/characters.json';
+import imagesloaded from 'imagesloaded';
 
 const BLACK = 0;
 const RED = 1;
@@ -35,22 +36,38 @@ export default class Teletext extends Textmode {
 
 		super({
 			canvas           : options.canvas,
-			colors           : TELETEXT_COLORS,
-			characterSets    : [
-				characterSets['alphanumeric'],
-				characterSets['mosaic'],
-				characterSets['separated']
-			],
 			backgroundColors : Utils.generate2dArray(rows, cols, BLACK),
 			foregroundColors : Utils.generate2dArray(rows, cols, WHITE),
 			text             : Utils.generate2dArray(rows, cols, SPACE_CHARACTER),
-			characterSetMap  : Utils.generate2dArray(rows, cols, ALPHA_NUMERIC)
+			characterSetMap  : Utils.generate2dArray(rows, cols, ALPHA_NUMERIC),
+			colors           : TELETEXT_COLORS
 		});
 
 		this.setTeletext(options.teletext);
 	}
 
+	renderLetterSprites() {
+		let alphanumeric = new Image();
+		let mosaic = new Image();
+		let separated = new Image();
+		alphanumeric.src = characterSets['alphanumeric'];
+		mosaic.src = characterSets['mosaic'];
+		separated.src = characterSets['separated'];
+
+		imagesloaded([alphanumeric, mosaic, separated], () => {
+			super.renderLetterSprites([alphanumeric, mosaic, separated], TELETEXT_COLORS);
+			this.ready = true;
+			if (this.renderCalled) {
+				this.render();
+			}
+		});
+	}
+
 	render() {
+		if (!this.ready) {
+			this.renderCalled = true;
+			return;
+		}
 		super.render();
 	}
 
