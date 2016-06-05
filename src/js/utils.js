@@ -1,27 +1,9 @@
-const ALPHA_BLACK = 0x00;
-const ALPHA_RED = 0x01;
-const ALPHA_GREEN = 0x02;
-const ALPHA_YELLOW = 0x03;
-const ALPHA_BLUE = 0x04;
-const ALPHA_MAGENTA = 0x05;
-const ALPHA_CYAN = 0x06;
-const ALPHA_WHITE = 0x07;
-
-const MOSAICS_BLACK = 0x10;
-const MOSAICS_RED = 0x11;
-const MOSAICS_GREEN = 0x12;
-const MOSAICS_YELLOW = 0x13;
-const MOSAICS_BLUE = 0x14;
-const MOSAICS_MAGENTA = 0x15;
-const MOSAICS_CYAN = 0x16;
-const MOSAICS_WHITE = 0x17;
-
-const CONTIGUOUS_MOSAICS = 0x19;
-const SEPARATED_MOSAICS = 0x1a;
-const BLACK_BACKGROUND = 0x1c;
-const NEW_BACKGROUND = 0x1d;
-const HOLD_MOSAICS = 0x1e;
-const RELEASE_MOSAICS = 0x1f;
+import {ALPHA_BLACK, ALPHA_RED, ALPHA_GREEN, ALPHA_YELLOW, ALPHA_BLUE,
+	ALPHA_MAGENTA, ALPHA_CYAN, ALPHA_WHITE, MOSAICS_BLACK, MOSAICS_RED,
+	MOSAICS_GREEN, MOSAICS_YELLOW, MOSAICS_BLUE, MOSAICS_MAGENTA,
+	MOSAICS_CYAN, MOSAICS_WHITE, CONTIGUOUS_MOSAICS, SEPARATED_MOSAICS,
+	BLACK_BACKGROUND, NEW_BACKGROUND, HOLD_MOSAICS,
+	RELEASE_MOSAICS} from './constants';
 
 const COLORS = {
 	[ALPHA_BLACK]     : 0,
@@ -60,8 +42,10 @@ export default class Utils {
 
 	static isColorSelector(character) {
 		return (
-			((ALPHA_BLACK <= character) && (character <= ALPHA_WHITE)) ||
-			((MOSAICS_BLACK <= character) && (character <= MOSAICS_WHITE))
+			((ALPHA_BLACK <= character) &&
+			(character <= ALPHA_WHITE)) ||
+			((MOSAICS_BLACK <= character) &&
+			(character <= MOSAICS_WHITE))
 		);
 	}
 
