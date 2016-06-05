@@ -90,6 +90,10 @@ export default class Teletext extends Textmode {
 	}
 
 	_parseTeletext() {
+		this.backgroundColors = [];
+		this.foregroundColors = [];
+		this.text = [];
+		this.characterSetMap = [];
 		for (let row = 0; row < this.teletext.length; row++) {
 			this._parseRow(row);
 		}

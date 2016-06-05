@@ -1,6 +1,6 @@
 {
   "name": "teletext",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "JavaScript Teletext generator",
   "main": "dist/js/teletext.js",
   "scripts": {
