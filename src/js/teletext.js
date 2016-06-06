@@ -57,15 +57,12 @@ export default class Teletext extends Textmode {
 		imagesloaded([alphanumeric, mosaic, separated], () => {
 			super.renderLetterSprites([alphanumeric, mosaic, separated], TELETEXT_COLORS);
 			this.ready = true;
-			if (this.renderCalled) {
-				this.render();
-			}
+			this.render();
 		});
 	}
 
 	render() {
 		if (!this.ready) {
-			this.renderCalled = true;
 			return;
 		}
 		super.render();

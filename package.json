@@ -1,6 +1,6 @@
 {
   "name": "teletext",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "JavaScript Teletext generator",
   "main": "dist/js/teletext.js",
   "scripts": {
@@ -25,7 +25,7 @@
   "homepage": "https://github.com/hngrhorace/teletext#readme",
   "dependencies": {
     "imagesloaded": "^4.1.0",
-    "textmode": "0.0.6"
+    "textmode": "0.0.7"
   },
   "devDependencies": {
     "babel-cli": "^6.5.1",
