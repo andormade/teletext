@@ -91,6 +91,7 @@ export default class Teletext extends Textmode {
 		this.foregroundColors = [];
 		this.text = [];
 		this.characterSetMap = [];
+		this.longestRow = 0;
 		for (let row = 0; row < this.teletext.length; row++) {
 			this._parseRow(row);
 		}
@@ -127,6 +128,10 @@ export default class Teletext extends Textmode {
 			}
 
 			this.setCharacter(row, col, char);
+		}
+
+		if (length > this.getTeletextRow(this.longestRow).length) {
+			this.longestRow = row;
 		}
 	}
 
