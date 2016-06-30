@@ -172,7 +172,9 @@ export default class Teletext extends Textmode {
 	}
 
 	_handleNewBackground(char, row, col) {
-		for (let i = col; i < row; i++) {
+		let color = Utils.getColor(char);
+		let rowLength = this.getTeletextRow(row).length;
+		for (let i = col; i < rowLength; i++) {
 			this.setBackgroundColor(row, i, this.getForegroundColor(row, col));
 		}
 	}
