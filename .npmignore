@@ -3,7 +3,6 @@ src
 .gitignore
 .babelrc
 node_modules
-test.html
+test
 browser
-sample.png
 README.md

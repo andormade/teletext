@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Test</title>
+		<style></style>
+	</head>
+	<body>
+		<canvas id="tele"></canvas>
+		<script src="../browser/teletext.js"></script>
+		<script type="text/javascript">
+			var teletext = new Teletext({
+				canvas: document.getElementById('tele'),
+				teletext: [
+					[97, 97, 97, 97],
+					[97, 97, 97, 97],
+					[97, 97, 97, 97],
+					[97, 97],
+					[97, 97, 97, 97],
+					[97, 97, 97, 97],
+					[97, 0x1d, 97]
+				]
+			});
+
+			teletext.render();
+		</script>
+	</body>
+</html>

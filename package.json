@@ -1,6 +1,6 @@
 {
   "name": "teletext",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "JavaScript Teletext generator",
   "main": "dist/js/teletext.js",
   "scripts": {
@@ -9,7 +9,7 @@
     "build:graphics": "node build/png2base64.js",
     "build:js": "npm run build:babel && npm run build:browserify",
     "build": "npm run build:graphics && npm run build:js",
-	"prepublish": "npm run build"
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -25,8 +25,7 @@
   },
   "homepage": "https://github.com/hngrhorace/teletext#readme",
   "dependencies": {
-    "imagesloaded": "^4.1.0",
-    "textmode": "0.0.9"
+    "textmode": "0.0.12"
   },
   "devDependencies": {
     "babel-cli": "^6.5.1",
