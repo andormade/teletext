@@ -30,21 +30,20 @@ const SPACE_CHARACTER = 0x20;
 
 export default class Teletext extends Textmode {
 	constructor(options) {
-		let rows = options.teletext.length;
-		let cols = options.teletext[0].length;
-
 		super({
 			canvas           : options.canvas,
-			backgroundColors : Utils.generate2dArray(rows, cols, BLACK),
-			foregroundColors : Utils.generate2dArray(rows, cols, WHITE),
-			text             : Utils.generate2dArray(rows, cols, SPACE_CHARACTER),
-			characterSetMap  : Utils.generate2dArray(rows, cols, ALPHA_NUMERIC),
+			backgroundColors : [[]],
+			foregroundColors : [[]],
+			text             : [[]],
+			characterSetMap  : [[]],
 			colors           : TELETEXT_COLORS,
 			characterSets    : [
 				characterSets['alphanumeric'],
 				characterSets['mosaic'],
 				characterSets['separated']
-			]
+			],
+			rows : options.teletext.length,
+			cols : options.teletext[0].length
 		});
 
 		this.setTeletext(options.teletext);
@@ -61,6 +60,9 @@ export default class Teletext extends Textmode {
 	}
 
 	getTeletextChar(row, col) {
+		if (typeof this.teletext[row][col] === 'undefined') {
+			return SPACE_CHARACTER;
+		}
 		return this.teletext[row][col];
 	}
 
@@ -69,34 +71,25 @@ export default class Teletext extends Textmode {
 	}
 
 	_parseTeletext() {
-		this.backgroundColors = [];
-		this.foregroundColors = [];
-		this.text = [];
-		this.characterSetMap = [];
-		this.longestRow = 0;
-		for (let row = 0; row < this.teletext.length; row++) {
+		for (let row = 0; row < this.rows; row++) {
 			this._parseRow(row);
 		}
 	}
 
 	_setRowDefaults(row) {
-		let length = this.getTeletextRow(row).length;
-
-		this.backgroundColors[row] = Array(length).fill(BLACK);
-		this.foregroundColors[row] = Array(length).fill(WHITE);
-		this.text[row] = Array(length).fill(SPACE_CHARACTER);
-		this.characterSetMap[row] = Array(length).fill(ALPHA_NUMERIC);
+		this.backgroundColors[row] = Array(this.cols).fill(BLACK);
+		this.foregroundColors[row] = Array(this.cols).fill(WHITE);
+		this.text[row] = Array(this.cols).fill(SPACE_CHARACTER);
+		this.characterSetMap[row] = Array(this.cols).fill(ALPHA_NUMERIC);
 
 		this._isHoldMosaics = false;
 		this._isSeparatedMosaics = false;
 	}
 
 	_parseRow(row) {
-		let length = this.getTeletextRow(row).length;
-
 		this._setRowDefaults(row);
 
-		for (let col = 0; col < length; col++) {
+		for (let col = 0; col < this.cols; col++) {
 			let char = this.getTeletextChar(row, col);
 
 			if (Utils.isControlCharacter(char)) {
@@ -110,10 +103,6 @@ export default class Teletext extends Textmode {
 			}
 
 			this.setCharacter(row, col, char);
-		}
-
-		if (length > this.getTeletextRow(this.longestRow).length) {
-			this.longestRow = row;
 		}
 	}
 
@@ -146,8 +135,7 @@ export default class Teletext extends Textmode {
 		let characterSet = Utils.isMosaic(char)
 			? (this._isSeparatedMosaics ? SEPARATED_MOSAICS : CONTIGUOUS_MOSAICS)
 			: ALPHA_NUMERIC;
-		let rowLength = this.getTeletextRow(row).length;
-		for (let i = col; i < rowLength; i++) {
+		for (let i = col; i < this.cols; i++) {
 			this.setForegroundColor(row, i, color);
 			this.setCharacterSet(row, i, characterSet);
 		}
@@ -155,8 +143,7 @@ export default class Teletext extends Textmode {
 
 	_handleNewBackground(char, row, col) {
 		let color = Utils.getColor(char);
-		let rowLength = this.getTeletextRow(row).length;
-		for (let i = col; i < rowLength; i++) {
+		for (let i = col; i < this.cols; i++) {
 			this.setBackgroundColor(row, i, this.getForegroundColor(row, col));
 		}
 	}
