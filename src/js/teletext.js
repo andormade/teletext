@@ -41,15 +41,19 @@ export default class Teletext extends Textmode {
 				characterSets['alphanumeric'],
 				characterSets['mosaic'],
 				characterSets['separated']
-			],
-			rows : options.teletext.length,
-			cols : options.teletext[0].length
+			]
 		});
 
 		this.setTeletext(options.teletext);
 	}
 
-	setTeletext(text) {
+	setTeletext(
+		text,
+		rows = text.length,
+		cols = this.getLongestRowLength(text)
+	) {
+		this.rows = rows;
+		this.cols = cols;
 		this.teletext = text;
 		this._parseTeletext();
 	}
@@ -68,6 +72,18 @@ export default class Teletext extends Textmode {
 
 	getTeletextRow(row) {
 		return this.teletext[row];
+	}
+
+	getLongestRowLength(data) {
+		let longestLength = 0;
+
+		data.forEach((row) => {
+			if (row.length > longestLength) {
+				longestLength = row.length;
+			}
+		});
+
+		return longestLength;
 	}
 
 	_parseTeletext() {
